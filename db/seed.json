@@ -1,0 +1,66 @@
+{
+   "users":{
+      "user1":{
+         "uid":"skdjfalksjfhlakjdfh",
+         "username":"Tom"
+      },
+      "user2":{
+         "uid":"",
+         "username":""
+      }
+   },
+   "meals":{
+      "meal1":{
+         "date":"06/12/17",
+         "uid":"skdjfalksjfhlakjdfh",
+         "type":"breakfast"
+      },
+      "meal2":{
+         "date":"06/11/17",
+         "uid":"",
+         "type":"snack"
+      },
+      "meal3":{
+         "date":"06/10/17",
+         "uid":"",
+         "type":"dinner"
+      },
+      "meal4":{
+         "date":"06/09/17",
+         "uid":"",
+         "type":"lunch"
+      }
+   },
+   "foods":{
+      "food1":{
+         "meal_id":"meal1",
+         "item_id":"55cb92d37864d3ae0f20b2a5",
+         "item_name":"Ramen Noodles",
+         "brand_name":"Kaedama",
+         "nf_calories":370,
+         "nf_total_fat":1,
+         "nf_serving_size_qty":1,
+         "nf_serving_size_unit":"serving"
+      },
+      "food2":{
+         "meal_id":"meal1",
+         "item_id":"55cb92d37864d3ae0f20b2a5",
+         "item_name":"Ramen Noodles",
+         "brand_name":"Kaedama",
+         "nf_calories":370,
+         "nf_total_fat":1,
+         "nf_serving_size_qty":1,
+         "nf_serving_size_unit":"serving"
+      },
+      "food3":{
+         "meal_id":"meal1",
+         "item_id":"55cb92d37864d3ae0f20b2a5",
+         "item_name":"Ramen Noodles",
+         "brand_name":"Kaedama",
+         "nf_calories":370,
+         "nf_total_fat":1,
+         "nf_serving_size_qty":1,
+         "nf_serving_size_unit":"serving"
+      }
+   }
+}

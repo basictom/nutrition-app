@@ -1,7 +1,7 @@
 {
    "users":{
       "user1":{
-         "uid":"skdjfalksjfhlakjdfh",
+         "uid":"KmcoB84E9W6zyP-CNYH",
          "username":"Tom"
       },
       "user2":{
@@ -12,17 +12,17 @@
    "meals":{
       "meal1":{
          "date":"06/12/17",
-         "uid":"skdjfalksjfhlakjdfh",
+         "uid":"KmcoB84E9W6zyP-CNYH",
          "type":"breakfast"
       },
       "meal2":{
          "date":"06/11/17",
-         "uid":"",
+         "uid":"KmcoB84E9W6zyP-CNYH",
          "type":"snack"
       },
       "meal3":{
          "date":"06/10/17",
-         "uid":"",
+         "uid":"KmcoB84E9W6zyP-CNYH",
          "type":"dinner"
       },
       "meal4":{

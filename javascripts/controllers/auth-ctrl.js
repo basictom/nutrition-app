@@ -1,6 +1,9 @@
 app.controller("AuthCtrl", function($location, $rootScope, $scope, AuthFactory, UserFactory){
 
-  $scope.auth = {};
+  $scope.auth = {
+    email: "thomas@t.com",
+    password: "123456"
+  };
 
   let logMeIn = () => {
     AuthFactory.authenticate($scope.auth).then((userCreds) => {
@@ -11,7 +14,7 @@ app.controller("AuthCtrl", function($location, $rootScope, $scope, AuthFactory, 
     }).then((user) => {
       $rootScope.user = user;
       // console.log("successful log in");
-      // $location.url("/board/view");
+      $location.url("/meal");
     }).catch((error) => {
       console.log("getUser error", error);
     });

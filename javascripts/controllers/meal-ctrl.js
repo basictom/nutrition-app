@@ -10,7 +10,7 @@ app.controller("MealCtrl", function($scope, MealFactory, FIREBASE_CONFIG){
     console.log("clicking...");
     // get meals from API
     MealFactory.getUserNutr(query).then((returns) => {
-      console.log("api ctrl return", returns);
+      console.log("api ctrl return", returns.data.foods);
     }).catch(() => {
       console.log("get error", error);
     });

@@ -1,21 +1,22 @@
-app.factory("MealFactory", function($q, $http, FIREBASE_CONFIG, NUTRX_CONFIG){
+app.factory("MealFactory", function($q, $http, $httpParamSerializerJQLike, FIREBASE_CONFIG, NUTRX_CONFIG){
 
   let getUserNutr = (query) => {
     console.log("get api", query);
-    let nutrients = [];
     return $q((resolve, reject) => {
       $http({
-        method: 'post',
+        method: 'POST',
         url: 'https://trackapi.nutritionix.com/v2/natural/nutrients',
         headers: {
-          // 'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'application/x-www-form-urlencoded',
           'x-app-id': `${NUTRX_CONFIG.xappId}`,
           'x-app-key': `${NUTRX_CONFIG.xapiKey}`,
           'x-remote-user-id': `${NUTRX_CONFIG.xuserId}`
-        }
+        },
+        data: $httpParamSerializerJQLike({'query': query.query
+        })
       })
-      .then((nutr) => {
-        console.log("api returned", nutr);
+      .then((nutrients) => {
+        console.log("api returned", nutrients);
           // let collection = nutr.data;
             // Object.keys(pinCollection).forEach((key) => {
             //   pinCollection[key].id=key;

@@ -9,6 +9,16 @@
          "username":""
       }
    },
+   "days":{
+      "day1":{
+         "uid":"KmcoB84E9W6zyP-CNYH",
+         "date":"06/12/17"
+      },
+      "day2":{
+         "uid":"KmcoB84E9W6zyP-CNYH",
+         "date":"06/11/17"
+      }
+   },
    "meals":{
       "meal1":{
          "date":"06/12/17",

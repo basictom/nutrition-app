@@ -16,18 +16,37 @@ app.factory("MealFactory", function($q, $http, $httpParamSerializerJQLike, FIREB
         })
       })
       .then((nutrients) => {
-        console.log("api returned", nutrients);
-          // let collection = nutr.data;
-            // Object.keys(pinCollection).forEach((key) => {
-            //   pinCollection[key].id=key;
-            //   pins.push(pinCollection[key]);
-            // });
-          resolve(nutrients);
-      }).catch((error) => {
+        // console.log("api returned", nutrients);
+          // resolve(nutrients);
+          let flatNutrients = nutrients.data.foods;
+          return postUserValues(flatNutrients);
+      }).then((returns) => {
+          console.log("second .then return", returns);
+        }).catch((error) => {
         reject(error);
       });
     });
   };
+
+
+
+
+  let postUserValues = (values) => {
+  return $q((resolve, reject) => {
+    $http.post(`${FIREBASE_CONFIG.databaseURL}/meals.json`, JSON.stringify({
+      // description: pinId.description,
+      // title: pinId.title,
+      // uid: $rootScope.user.uid,
+      // url: pinId.url,
+      // boardID: boardId
+    }))
+    .then((result) => {
+      resolve(result);
+    }).catch((error) => {
+      reject(error);
+    });
+  });
+};
 
 
   return {getUserNutr:getUserNutr};

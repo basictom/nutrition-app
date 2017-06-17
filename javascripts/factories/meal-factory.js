@@ -2,6 +2,7 @@ app.factory("MealFactory", function($q, $http, $httpParamSerializerJQLike, FIREB
 
   let getUserNutr = (query) => {
     console.log("get api", query);
+    let flatNutrients = {};
     return $q((resolve, reject) => {
       $http({
         method: 'POST',
@@ -16,13 +17,14 @@ app.factory("MealFactory", function($q, $http, $httpParamSerializerJQLike, FIREB
         })
       })
       .then((nutrients) => {
-        // console.log("api returned", nutrients);
+        console.log("api returned", nutrients);
           // resolve(nutrients);
-          let flatNutrients = nutrients.data.foods;
-          return postUserValues(flatNutrients);
-      }).then((returns) => {
-          console.log("second .then return", returns);
-        }).catch((error) => {
+          flatNutrients = nutrients.data.foods;
+          resolve(flatNutrients);
+          console.log("nutrients", flatNutrients);
+          // return postUserValues(flatNutrients);
+      }).catch((error) => {
+        console.log("catch error", error);
         reject(error);
       });
     });
@@ -32,24 +34,23 @@ app.factory("MealFactory", function($q, $http, $httpParamSerializerJQLike, FIREB
 
 
   let postUserValues = (values) => {
-  return $q((resolve, reject) => {
-    $http.post(`${FIREBASE_CONFIG.databaseURL}/meals.json`, JSON.stringify({
-      // description: pinId.description,
-      // title: pinId.title,
-      // uid: $rootScope.user.uid,
-      // url: pinId.url,
-      // boardID: boardId
-    }))
-    .then((result) => {
-      resolve(result);
-    }).catch((error) => {
-      reject(error);
+    console.log("hitting post user values", values);
+    return $q((resolve, reject) => {
+        $http.post(`${FIREBASE_CONFIG.databaseURL}/meals.json`, JSON.stringify({
+          food_name: values.food_name
+        }))
+        .then((result) => {
+          console.log("post to FB", result);
+          resolve(result);
+        }).catch((error) => {
+          console.log("post to FB", error);
+          reject(error);
+        });
     });
-  });
-};
+  };
 
 
-  return {getUserNutr:getUserNutr};
+  return {getUserNutr:getUserNutr, postUserValues:postUserValues};
 
 
 });

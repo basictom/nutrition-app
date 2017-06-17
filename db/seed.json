@@ -1,7 +1,7 @@
 {
    "users":{
       "user1":{
-         "uid":"KmcoB84E9W6zyP-CNYH",
+         "uid":"pJCeACdro1Su8B5y3FKQnda2F912",
          "username":"Tom"
       },
       "user2":{
@@ -11,28 +11,28 @@
    },
    "days":{
       "day1":{
-         "uid":"KmcoB84E9W6zyP-CNYH",
+         "uid":"pJCeACdro1Su8B5y3FKQnda2F912",
          "date":"06/12/17"
       },
       "day2":{
-         "uid":"KmcoB84E9W6zyP-CNYH",
+         "uid":"pJCeACdro1Su8B5y3FKQnda2F912",
          "date":"06/11/17"
       }
    },
    "meals":{
       "meal1":{
          "date":"06/12/17",
-         "uid":"KmcoB84E9W6zyP-CNYH",
+         "uid":"pJCeACdro1Su8B5y3FKQnda2F912",
          "type":"breakfast"
       },
       "meal2":{
          "date":"06/11/17",
-         "uid":"KmcoB84E9W6zyP-CNYH",
+         "uid":"pJCeACdro1Su8B5y3FKQnda2F912",
          "type":"snack"
       },
       "meal3":{
          "date":"06/10/17",
-         "uid":"KmcoB84E9W6zyP-CNYH",
+         "uid":"pJCeACdro1Su8B5y3FKQnda2F912",
          "type":"dinner"
       },
       "meal4":{
@@ -53,7 +53,7 @@
          "nf_serving_size_unit":"serving"
       },
       "food2":{
-         "meal_id":"meal1",
+         "meal_id":"meal2",
          "item_id":"55cb92d37864d3ae0f20b2a5",
          "item_name":"Ramen Noodles",
          "brand_name":"Kaedama",
@@ -63,7 +63,7 @@
          "nf_serving_size_unit":"serving"
       },
       "food3":{
-         "meal_id":"meal1",
+         "meal_id":"meal3",
          "item_id":"55cb92d37864d3ae0f20b2a5",
          "item_name":"Ramen Noodles",
          "brand_name":"Kaedama",

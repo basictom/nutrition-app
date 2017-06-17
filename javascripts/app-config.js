@@ -57,6 +57,6 @@ app.config(function($routeProvider) {  // $routeProvider --- angular key word
     templateUrl: '/partials/pin-new.html',
     controller: 'FoodCtrl'
     // resolve : {isAuth}
-  });
-  // .otherwise('/auth');
+  })
+  .otherwise('/auth');
 });

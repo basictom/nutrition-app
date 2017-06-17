@@ -1,56 +1,39 @@
-app.factory("MealFactory", function($q, $http, $httpParamSerializerJQLike, FIREBASE_CONFIG, NUTRX_CONFIG){
+app.factory("MealFactory", function($q, $http, $rootScope, FIREBASE_CONFIG, NUTRX_CONFIG){
 
-  let getUserNutr = (query) => {
-    console.log("get api", query);
-    let flatNutrients = {};
+
+
+
+  let createMeal = (meal, uid) => {
     return $q((resolve, reject) => {
-      $http({
-        method: 'POST',
-        url: 'https://trackapi.nutritionix.com/v2/natural/nutrients',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'x-app-id': `${NUTRX_CONFIG.xappId}`,
-          'x-app-key': `${NUTRX_CONFIG.xapiKey}`,
-          'x-remote-user-id': `${NUTRX_CONFIG.xuserId}`
-        },
-        data: $httpParamSerializerJQLike({'query': query.query
-        })
-      })
-      .then((nutrients) => {
-        console.log("api returned", nutrients);
-          // resolve(nutrients);
-          flatNutrients = nutrients.data.foods;
-          resolve(flatNutrients);
-          console.log("nutrients", flatNutrients);
-          // return postUserValues(flatNutrients);
+      $http.post(`${FIREBASE_CONFIG.databaseURL}/meals.json`, JSON.stringify({
+        date: meal.date,
+        type: meal.singleSelect,
+        uid: uid
+      }))
+      .then((meals) => {
+          resolve(meals);
       }).catch((error) => {
-        console.log("catch error", error);
+        reject(error);
+      });
+    });
+  };
+
+  let getUserMeals = () => {
+    let meals = [];
+    return $q((resolve, reject) => {
+      $http.get(`${FIREBASE_CONFIG.databaseURL}/meals.json?orderBy="mealId"&equalTo="${mealId}"`)
+      .then((meals) => {
+        console.log("get meals in factory", meals);
+          let mealCollect = meals.data;
+          resolve(mealCollect);
+      }).catch((error) => {
         reject(error);
       });
     });
   };
 
 
-
-
-  let postUserValues = (values) => {
-    console.log("hitting post user values", values);
-    return $q((resolve, reject) => {
-        $http.post(`${FIREBASE_CONFIG.databaseURL}/meals.json`, JSON.stringify({
-          food_name: values.food_name
-        }))
-        .then((result) => {
-          console.log("post to FB", result);
-          resolve(result);
-        }).catch((error) => {
-          console.log("post to FB", error);
-          reject(error);
-        });
-    });
-  };
-
-
-  return {getUserNutr:getUserNutr, postUserValues:postUserValues};
+  return { getUserMeals:getUserMeals, createMeal:createMeal};
 
 
 });

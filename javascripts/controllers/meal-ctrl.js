@@ -1,6 +1,7 @@
-app.controller("MealCtrl", function($scope, MealFactory, FIREBASE_CONFIG){
+app.controller("MealCtrl", function($scope, $rootScope, MealFactory, FoodFactory, FIREBASE_CONFIG){
 
   $scope.meals = {};
+  $scope.foods = {};
   $scope.userInput = {};
 
 
@@ -13,29 +14,62 @@ app.controller("MealCtrl", function($scope, MealFactory, FIREBASE_CONFIG){
   console.log("user input", $scope.userInput);
 
   $scope.getFacts = () => {
-    console.log("clicking...");
-    // get meals from API
-    MealFactory.getUserNutr(query).then((returns) => {
-      // let returnedVal = returns.data.foods;
-      $scope.meals = returns;
-      for(i=0;i<returns.length;i++){
-        singleItem(returns[i]);
-      }
+    MealFactory.createMeal($scope.userInput, $rootScope.user.uid).then((returns) => {
+      let mealId = returns.data.name;
+      FoodFactory.getUserNutr(query).then((returns) => {
+        for(i=0;i<returns.length;i++){
+          singleItem(returns[i], mealId);
+        }
+      });
     }).catch((error) => {
-      console.log("get error", error);
+      console.log(error);
+    });
+    // get meals from API
+
+  };
+
+  $scope.addMeal = () => {
+    console.log("clicking option");
+  };
+
+  let getMeals = () => {
+    MealFactory.getUserMeals().then((returns) => {
+      returns.forEach((meal) => {
+        FoodFactory.getUserFoods(meal.id).then((results) => {
+          console.log("array of meals", results);
+          meal.foods = results;
+        }).catch(() => {
+
+        });
+      });
+      // Loop through everything that comes back make a factory call for the meal specific foods
+      $scope.meals = returns;
+      console.log("get meals", $scope.meals);
+    }).catch((error) => {
+      console.log("get meals error", error);
     });
   };
 
-  let singleItem = (item) => {
-    MealFactory.postUserValues(item).then((returns) => {
-      console.log("signle", returns);
+  getMeals();
+
+  let getFoods = () => {
+    FoodFactory.getUserFoods().then((results) => {
+      // console.log("getFoods", results);
+      $scope.foods = results;
+    }).catch((error) => {
+      console.log("get foods error", error);
+    });
+  };
+
+  getFoods();
+
+  let singleItem = (item, mealId) => {
+    FoodFactory.postUserValues(item, mealId).then((returns) => {
+      // console.log("signle", returns);
     }).catch((error) => {
       console.log("single error", error);
     });
   };
 
-  // let getMeals = () => {
-  //   // get meals from FIREBASE
-  // };
 
 });

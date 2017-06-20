@@ -1,3 +1,17 @@
 <h1>Welcome to the day view folks</h1>
-<input type="date" id="datepicker" ng-model="userDate.date" />
-<button ng-click="addNewDay()"
+<!-- <input type="date" id="date" ng-model="userDate.date" />
+<button ng-click="addNewDay()">Add New Date</button> -->
+
+<datepicker date-format="shortDate">
+  <input ng-model="date" type="text"/>
+</datepicker>
+<button ng-click="addNewDay()">Add New Date</button>
+
+<div class="container" ng-repeat="day in newDates">
+	<div class="col-xs-12">
+		<div class="col-xs-4">
+		<a ng-href="/#!/meal/{{day.date}}">{{day.date}}</a>
+		</div>
+	</div>
+</div>
+

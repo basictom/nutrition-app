@@ -1,6 +1,8 @@
 app.factory("FoodFactory", function($q, $http, $httpParamSerializerJQLike, NUTRX_CONFIG, FIREBASE_CONFIG){
 
 
+
+
   let getUserNutr = (query) => {
     let flatNutrients = {};
     return $q((resolve, reject) => {

@@ -1,21 +1,35 @@
-app.controller("DayCtrl", function($scope, DayFactory, FIREBASE_CONFIG){
+app.controller("DayCtrl", function($scope, $rootScope, DayFactory, FIREBASE_CONFIG){
   // console.log("day ctrl");
+// 
+  $scope.newDates = {};
+  $scope.date = "";
 
-  $scope.newDay = {};
-  $scope.userDate = {};
-
-  console.log("user date", $scope.userDate);
+  // console.log("user date", $scope.userDate.date);
 
   $scope.addNewDay = () => {
-    console.log("user date");
-  DayFactory.postNewDay()
+  console.log("user date", $scope.date);
+  let date = $scope.date;
+  DayFactory.postNewDay(date)
     .then((returns) => {
-      console.log("new day return", returns);
-      // $scope.newDay = {returns};
-      // $location.url(`/board/${$scope.user}/pin/${$scope.boardid}`);
+      $scope.date = {returns};
+      getDates();
+      $scope.date = "";
     }).catch((error) => {
       console.log("Add Pin Error", error);
     });
   };
+
+  let getDates = () => {
+    DayFactory.getDates($rootScope.user.uid).then((results) => {
+      console.log("get dats", results);
+      $scope.newDates = results;
+    }).catch((error) => {
+      console.log("get dates error", error);
+    });
+  };
+
+  getDates();
+
+
 
 });

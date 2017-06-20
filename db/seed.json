@@ -3,10 +3,6 @@
       "user1":{
          "uid":"pJCeACdro1Su8B5y3FKQnda2F912",
          "username":"Tom"
-      },
-      "user2":{
-         "uid":"",
-         "username":""
       }
    },
    "days":{
@@ -21,56 +17,69 @@
    },
    "meals":{
       "meal1":{
-         "date":"06/12/17",
+         "date":"6/12/17",
          "uid":"pJCeACdro1Su8B5y3FKQnda2F912",
          "type":"breakfast"
       },
       "meal2":{
-         "date":"06/11/17",
+         "date":"6/11/17",
          "uid":"pJCeACdro1Su8B5y3FKQnda2F912",
          "type":"snack"
       },
       "meal3":{
-         "date":"06/10/17",
+         "date":"6/10/17",
          "uid":"pJCeACdro1Su8B5y3FKQnda2F912",
          "type":"dinner"
       },
       "meal4":{
-         "date":"06/09/17",
-         "uid":"",
-         "type":"lunch"
+         "date":"6/9/17",
+         "uid":"pJCeACdro1Su8B5y3FKQnda2F912",
+         "type":"dinner"
+      },
+      "meal5":{
+         "date":"6/8/17",
+         "uid":"pJCeACdro1Su8B5y3FKQnda2F912",
+         "type":"dinner"
+      },
+      "meal6":{
+         "date":"6/7/17",
+         "uid":"pJCeACdro1Su8B5y3FKQnda2F912",
+         "type":"dinner"
       }
    },
    "foods":{
       "food1":{
          "meal_id":"meal1",
-         "item_id":"55cb92d37864d3ae0f20b2a5",
-         "item_name":"Ramen Noodles",
-         "brand_name":"Kaedama",
+         "food_name":"Ramen Noodles",
          "nf_calories":370,
          "nf_total_fat":1,
-         "nf_serving_size_qty":1,
-         "nf_serving_size_unit":"serving"
+         "serving_qty":1,
+         "serving_unit":"cup",
+         "nf_cholesterol":200,
+         "nf_protein":100,
+         "nf_total_carbohydrate":150
       },
       "food2":{
-         "meal_id":"meal2",
-         "item_id":"55cb92d37864d3ae0f20b2a5",
-         "item_name":"Ramen Noodles",
-         "brand_name":"Kaedama",
+         "meal_id":"meal1",
+         "food_name":"Ramen Noodles",
          "nf_calories":370,
          "nf_total_fat":1,
-         "nf_serving_size_qty":1,
-         "nf_serving_size_unit":"serving"
+         "serving_qty":1,
+         "serving_unit":"cup",
+         "nf_cholesterol":200,
+         "nf_protein":100,
+         "nf_total_carbohydrate":150
       },
       "food3":{
-         "meal_id":"meal3",
-         "item_id":"55cb92d37864d3ae0f20b2a5",
-         "item_name":"Ramen Noodles",
-         "brand_name":"Kaedama",
+         "meal_id":"meal1",
+         "food_name":"Ramen Noodles",
          "nf_calories":370,
          "nf_total_fat":1,
-         "nf_serving_size_qty":1,
-         "nf_serving_size_unit":"serving"
+         "serving_qty":1,
+         "serving_unit":"cup",
+         "nf_cholesterol":200,
+         "nf_protein":100,
+         "nf_total_carbohydrate":150
       }
    }
 }

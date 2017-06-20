@@ -3,10 +3,10 @@ app.factory("MealFactory", function($q, $http, $rootScope, FIREBASE_CONFIG, NUTR
 
 
 
-  let createMeal = (meal, uid) => {
+  let createMeal = (meal, uid, date) => {
     return $q((resolve, reject) => {
       $http.post(`${FIREBASE_CONFIG.databaseURL}/meals.json`, JSON.stringify({
-        date: meal.date,
+        date: date,
         type: meal.singleSelect,
         uid: uid
       }))

@@ -1,8 +1,9 @@
 app.controller("MealCtrl", function($scope, $rootScope, MealFactory, FoodFactory, FIREBASE_CONFIG){
 
-  $scope.meals = {};
-  $scope.foods = {};
+  $scope.meals = [];
   $scope.userInput = {};
+
+  let chartdata = 
 
 
   $scope.data = {
@@ -24,27 +25,36 @@ app.controller("MealCtrl", function($scope, $rootScope, MealFactory, FoodFactory
     }).catch((error) => {
       console.log(error);
     });
-    // get meals from API
-
   };
 
   $scope.addMeal = () => {
     console.log("clicking option");
   };
 
+
+  let getFoods = () => {
+    FoodFactory.getUserFoods().then((results) => {
+      // console.log("getFoods", results);
+      // $scope.foods = results;
+    }).catch((error) => {
+      console.log("get foods error", error);
+    });
+  };
+
+
   let getMeals = () => {
-    MealFactory.getUserMeals().then((returns) => {
+    MealFactory.getUserMeals($rootScope.user.uid).then((returns) => {
       returns.forEach((meal) => {
         FoodFactory.getUserFoods(meal.id).then((results) => {
-          console.log("array of meals", results);
           meal.foods = results;
-        }).catch(() => {
-
+        }).catch((error) => {
+          console.log("get user foods", error);
         });
       });
       // Loop through everything that comes back make a factory call for the meal specific foods
       $scope.meals = returns;
-      console.log("get meals", $scope.meals);
+      console.log("get meals", returns);
+      getFoods();
     }).catch((error) => {
       console.log("get meals error", error);
     });
@@ -52,20 +62,16 @@ app.controller("MealCtrl", function($scope, $rootScope, MealFactory, FoodFactory
 
   getMeals();
 
-  let getFoods = () => {
-    FoodFactory.getUserFoods().then((results) => {
-      // console.log("getFoods", results);
-      $scope.foods = results;
-    }).catch((error) => {
-      console.log("get foods error", error);
-    });
-  };
+  
 
-  getFoods();
+  
 
   let singleItem = (item, mealId) => {
     FoodFactory.postUserValues(item, mealId).then((returns) => {
-      // console.log("signle", returns);
+      mealId = returns.data.name;
+      console.log("single meal", mealId);
+      // getMeals(mealId);
+      getMeals();
     }).catch((error) => {
       console.log("single error", error);
     });

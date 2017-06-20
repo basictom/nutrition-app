@@ -2,7 +2,6 @@ app.factory("FoodFactory", function($q, $http, $httpParamSerializerJQLike, NUTRX
 
 
   let getUserNutr = (query) => {
-    console.log("get api", query);
     let flatNutrients = {};
     return $q((resolve, reject) => {
       $http({
@@ -18,12 +17,8 @@ app.factory("FoodFactory", function($q, $http, $httpParamSerializerJQLike, NUTRX
         })
       })
       .then((nutrients) => {
-        console.log("api returned", nutrients);
-          // resolve(nutrients);
           flatNutrients = nutrients.data.foods;
           resolve(flatNutrients);
-          console.log("nutrients", flatNutrients);
-          // return postUserValues(flatNutrients);
       }).catch((error) => {
         console.log("catch error", error);
         reject(error);
@@ -32,14 +27,19 @@ app.factory("FoodFactory", function($q, $http, $httpParamSerializerJQLike, NUTRX
   };
 
 
-  let getUserFoods = () => {
+  let getUserFoods = (mealId) => {
     let foods = [];
     return $q((resolve, reject) => {
-      $http.get(`${FIREBASE_CONFIG.databaseURL}/foods.json`)
-      .then((foods) => {
-        console.log("get meals in factory", foods);
-          let foodCollect = foods.data;
-          resolve(foodCollect);
+      $http.get(`${FIREBASE_CONFIG.databaseURL}/foods.json?orderBy="mealId"&equalTo="${mealId}"`)
+      .then((food) => {
+          let foodCollect = food.data;
+          if(foodCollect !== null){
+            Object.keys(foodCollect).forEach((key) => {
+              foodCollect[key].id=key;
+              foods.push(foodCollect[key]);
+            });
+          }
+          resolve(foods);
       }).catch((error) => {
         reject(error);
       });
@@ -48,7 +48,6 @@ app.factory("FoodFactory", function($q, $http, $httpParamSerializerJQLike, NUTRX
 
 
   let postUserValues = (values, mealId) => {
-    // console.log("hitting post user values", values);
     return $q((resolve, reject) => {
         $http.post(`${FIREBASE_CONFIG.databaseURL}/foods.json`, JSON.stringify({
           mealId: mealId,
@@ -61,7 +60,6 @@ app.factory("FoodFactory", function($q, $http, $httpParamSerializerJQLike, NUTRX
           food_name: values.food_name
         }))
         .then((result) => {
-          // console.log("post to FB", result);
           resolve(result);
         }).catch((error) => {
           console.log("post to FB", error);

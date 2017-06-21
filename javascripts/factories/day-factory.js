@@ -38,6 +38,17 @@ let getDates = (uid) => {
     });
   };
 
+  let deleteDate = (dayId) => {
+    return $q((resolve, reject) => {
+      $http.delete(`${FIREBASE_CONFIG.databaseURL}/days/${dayId}.json`)
+      .then((results) => {
+        resolve(results);
+      }).catch((error) => {
+        reject(error);
+      });
+    });
+  };
+
 
   return {postNewDay:postNewDay, getDates:getDates};
 

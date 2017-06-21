@@ -18,11 +18,11 @@ app.factory("MealFactory", function($q, $http, $rootScope, FIREBASE_CONFIG, NUTR
     });
   };
 
-  let getUserMeals = (uid) => {
-    console.log("get user meals", uid);
+  let getUserMeals = (dateId) => {
+    console.log("get user meals", dateId);
     let meals = [];
     return $q((resolve, reject) => {
-      $http.get(`${FIREBASE_CONFIG.databaseURL}/meals.json?orderBy="uid"&equalTo="${uid}"`)
+      $http.get(`${FIREBASE_CONFIG.databaseURL}/meals.json?orderBy="dayId"&equalTo="${dateId}"`)
       .then((meal) => {
         let mealCollect = meal.data;
           if(mealCollect !== null){

@@ -7,11 +7,18 @@
 </datepicker>
 <button ng-click="addNewDay()">Add New Date</button>
 
-<div class="container" ng-repeat="day in newDates">
-	<div class="col-xs-12">
-		<div class="col-xs-4">
-		<a ng-href="/#!/meal/{{day.date}}">{{day.date}}</a>
+<div class="container">
+	<div class="row">
+		<div class="col-xs-6 day-view" ng-repeat="day in newDates">
+			<div class="col-xs-8">
+				<a ng-href="/#!/meal/{{day.id}}">{{day.date}}</a>
+			</div>
+			<div class="col-xs-4">
+				<button>Delete</button>
+				<button>Edit</button>
+			</div>
 		</div>
 	</div>
 </div>
+
 

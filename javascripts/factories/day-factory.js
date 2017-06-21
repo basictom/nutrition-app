@@ -2,14 +2,14 @@ app.factory("DayFactory", function($q, $http, FIREBASE_CONFIG, $rootScope){
   console.log("day factory");
 
   let postNewDay = (date) => {
-    console.log("day factory", date);
   return $q((resolve, reject) => {
     $http.post(`${FIREBASE_CONFIG.databaseURL}/days.json`, JSON.stringify({
       date: date,
       uid: $rootScope.user.uid
     }))
     .then((result) => {
-      resolve(result);
+      // console.log("day results in factory", result.data.name);
+      resolve(result.data);
     }).catch((error) => {
       reject(error);
     });

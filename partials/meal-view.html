@@ -5,25 +5,28 @@
     </select>
 
     <input type="text" ng-model="userInput.query" placeholder="Search..." />
-    <input type="text" ng-model="userInput.date" placeholder="Date" />
+    <!-- <input type="text" ng-model="userInput.date" placeholder="Date" /> -->
     <button ng-click="getFacts()">Get Facts</button>
   </div>
   <div class="col-xs-12">
     <div class="row">
+      
 
-      <div id="chartdiv"></div> 
-
-      <!-- <div class="container-fluid panel" ng-repeat="meal in meals">
-        {{meal.type}}<br />
-        {{meal.date}}<br />
+      <div class="panel" ng-repeat="meal in meals">
+        <h2>{{meal.type}}&nbsp;&nbsp;&nbsp;{{meal.date}}</h2><br />
+        
         <div class="" ng-repeat="food in meal.foods">
-          {{food.food_name}}<br/>
-          {{food.nf_calories}}<br  />
-          {{food.nf_sugars}}<br  />
-          {{food.nf_cholesterol}}<br />
-          {{food.nf_calories}}
+          Name: {{food.food_name}}<br/>
+          Calories: {{food.nf_calories}}<br  />
+          Cholesterol: {{food.nf_cholesterol}}<br />
+          Protiens: {{food.nf_protein}}<br />
+          Carb's: {{food.nf_total_carbohydrate}}<br />
+          Serving Unit: {{food.serving_unit}}<br />
+          Serving Quantity: {{food.serving_qty}}<br />
         </div>
-      </div> -->
+      </div>
+      <div id="chartdiv"></div> 
+      
     </div>
   </div>
 </div>

@@ -8,43 +8,49 @@
    "days":{
       "day1":{
          "uid":"pJCeACdro1Su8B5y3FKQnda2F912",
-         "date":"06/12/17"
+         "date":"6/27/17"
       },
       "day2":{
          "uid":"pJCeACdro1Su8B5y3FKQnda2F912",
-         "date":"06/11/17"
+         "date":"6/12/17"
       }
    },
    "meals":{
       "meal1":{
          "date":"6/12/17",
          "uid":"pJCeACdro1Su8B5y3FKQnda2F912",
-         "type":"breakfast"
+         "type":"breakfast",
+         "dayId":"day1"
       },
       "meal2":{
-         "date":"6/11/17",
+         "date":"6/12/17",
          "uid":"pJCeACdro1Su8B5y3FKQnda2F912",
-         "type":"snack"
+         "type":"snack",
+         "dayId":"day1"
       },
       "meal3":{
-         "date":"6/10/17",
+         "date":"6/12/17",
          "uid":"pJCeACdro1Su8B5y3FKQnda2F912",
-         "type":"dinner"
+         "type":"dinner",
+         "dayId":"day1"
       },
       "meal4":{
          "date":"6/9/17",
          "uid":"pJCeACdro1Su8B5y3FKQnda2F912",
-         "type":"dinner"
+         "type":"dinner",
+         "dayId":"day2"
       },
       "meal5":{
          "date":"6/8/17",
          "uid":"pJCeACdro1Su8B5y3FKQnda2F912",
-         "type":"dinner"
+         "type":"dinner",
+         "dayId":"day2"
       },
       "meal6":{
          "date":"6/7/17",
          "uid":"pJCeACdro1Su8B5y3FKQnda2F912",
-         "type":"dinner"
+         "type":"dinner",
+         "dayId":"day2"
       }
    },
    "foods":{

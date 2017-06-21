@@ -1,6 +1,4 @@
 app.controller("DayCtrl", function($scope, $rootScope, DayFactory, FIREBASE_CONFIG){
-  // console.log("day ctrl");
-// 
   $scope.newDates = {};
   $scope.date = "";
 
@@ -11,6 +9,7 @@ app.controller("DayCtrl", function($scope, $rootScope, DayFactory, FIREBASE_CONF
   let date = $scope.date;
   DayFactory.postNewDay(date)
     .then((returns) => {
+      console.log("day returns", returns);
       $scope.date = {returns};
       getDates();
       $scope.date = "";

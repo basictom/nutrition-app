@@ -12,7 +12,7 @@ app.controller("AuthCtrl", function($location, $rootScope, $scope, AuthFactory, 
       $scope.alerts.push({msg: error.message});
     }).then((user) => {
       $rootScope.user = user;
-      $location.url("/meal");
+      $location.url("/day");
     }).catch((error) => {
       console.log("getUser error", error);
     });

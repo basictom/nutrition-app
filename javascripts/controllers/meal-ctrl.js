@@ -44,7 +44,8 @@ app.controller("MealCtrl", function($scope, $rootScope, $routeParams, MealFactor
 
 
   let getMeals = () => {
-    MealFactory.getUserMeals($rootScope.user.uid).then((returns) => {
+    console.log("route params", $routeParams.date);
+    MealFactory.getUserMeals($routeParams.date).then((returns) => {
       returns.forEach((meal) => {
         FoodFactory.getUserFoods(meal.id).then((results) => {
           meal.foods = results;
@@ -121,7 +122,7 @@ var chart = AmCharts.makeChart("chartdiv", {
         "bulletBorderThickness": 1,
         "hideBulletsCount": 30,
         "title": "Total Calories",
-        "valueField": "visits",
+        "valueField": "calories",
     "fillAlphas": 0
     }, {
         "valueAxis": "v2",
@@ -130,7 +131,7 @@ var chart = AmCharts.makeChart("chartdiv", {
         "bulletBorderThickness": 1,
         "hideBulletsCount": 30,
         "title": "Total Protiens",
-        "valueField": "hits",
+        "valueField": "protiens",
     "fillAlphas": 0
     }, {
         "valueAxis": "v3",
@@ -138,8 +139,8 @@ var chart = AmCharts.makeChart("chartdiv", {
         "bullet": "triangleUp",
         "bulletBorderThickness": 1,
         "hideBulletsCount": 30,
-        "title": "Total Fats",
-        "valueField": "views",
+        "title": "Total Carbs",
+        "valueField": "carbs",
     "fillAlphas": 0
     }],
     "chartScrollbar": {},
@@ -158,8 +159,19 @@ var chart = AmCharts.makeChart("chartdiv", {
      }
 });
 
-chart.addListener("dataUpdated", zoomChart);
-zoomChart();
+
+
+function setDataSet(dataset_url) {
+  AmCharts.loadFile(dataset_url, {}, function(data) {
+    chart.dataProvider = AmCharts.parseJSON(data);
+    chart.validateData();
+  });
+}
+
+
+
+// chart.addListener("dataUpdated", zoomChart);
+// zoomChart();
 
 
 // generate some random data, quite different range
@@ -168,22 +180,22 @@ function generateChartData() {
     var firstDate = new Date();
     firstDate.setDate(firstDate.getDate() - 10);
 
-    for (var i = 0; i < 100; i++) {
+    for (var i = 0; i < 10; i++) {
         // we create date objects here. In your data, you can have date strings
         // and then set format of your dates using chart.dataDateFormat property,
         // however when possible, use date objects, as this will speed up chart rendering.
         var newDate = new Date(firstDate);
         newDate.setDate(newDate.getDate() + i);
 
-        var visits = Math.round(Math.sin(i * 5) * i);
-        var hits = Math.round(Math.random() * 80) + 500 + i * 3;
-        var views = Math.round(Math.random() * 6000) + i * 4;
+        var calories = Math.round(Math.sin(i * 5) * i);
+        var protiens = Math.round(Math.random() * 80) + 500 + i * 3;
+        var carbs = Math.round(Math.random() * 6000) + i * 4;
 
         chartData.push({
             date: newDate,
-            visits: visits,
-            hits: hits,
-            views: views
+            calories: calories,
+            protiens: protiens,
+            carbs: carbs
         });
     }
     return chartData;

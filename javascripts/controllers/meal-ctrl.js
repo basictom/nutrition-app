@@ -131,34 +131,34 @@ app.controller("MealCtrl", function($scope, $rootScope, $routeParams, MealFactor
 // ##############################################
 let loadCharts = () => {
     let proteinData = [ {
-    "type": "Breakfast",
+    "type": "Proteins",
     "visits": totals.breakfast.protein
   }, {
-    "type": "Lunch",
+    "type": "Proteins",
     "visits": totals.lunch.protein
   }, {
-    "type": "Dinner",
+    "type": "Proteins",
     "visits": totals.dinner.protein
   }];
 console.log("proteinData", proteinData);
 let calorieData = [ {
-    "type": "Breakfast",
+    "type": "Calories",
     "visits": totals.breakfast.calories
   }, {
-    "type": "Lunch",
+    "type": "Calories",
     "visits": totals.lunch.calories
   }, {
-    "type": "Dinner",
+    "type": "Calories",
     "visits": totals.dinner.calories
   }];
 let carbData = [ {
-    "type": "Breakfast",
+    "type": "Carbohydrates",
     "visits": totals.breakfast.carbs
   }, {
-    "type": "Lunch",
+    "type": "Carbohydrates",
     "visits": totals.lunch.carbs
   }, {
-    "type": "Dinner",
+    "type": "Carbohydrates",
     "visits": totals.dinner.carbs
   }];
 

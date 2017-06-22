@@ -1,6 +1,6 @@
 <div class="col-xs-12">
   <div class="col-xs-8 col-xs-offset-1">
-    <select name="singleSelect" ng-model="userInput.singleSelect">
+    <select required name="singleSelect" ng-model="userInput.singleSelect">
       <option ng-repeat="x in options">{{x}}</option>
     </select>
 
@@ -25,7 +25,9 @@
           Serving Quantity: {{food.serving_qty}}<br />
         </div>
       </div>
-      <div id="chartdiv"></div> 
+      <div id="chartdiv1" class="col-xs-4 chartdiv"></div> 
+      <div id="chartdiv2" class="col-xs-4 chartdiv"></div> 
+      <div id="chartdiv3" class="col-xs-4 chartdiv"></div> 
       
     </div>
   </div>

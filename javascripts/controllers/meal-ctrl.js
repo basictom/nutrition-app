@@ -3,7 +3,23 @@ app.controller("MealCtrl", function($scope, $rootScope, $routeParams, MealFactor
   $scope.meals = [];
   $scope.userInput = {};
 
-  let chartdata = [];
+  let totals = {
+    breakfast : {
+      calories : 0,
+      protein: 0,
+      carbs: 0
+    },
+    lunch : {
+      calories : 0,
+      protein: 0,
+      carbs: 0
+    },
+    dinner : {
+      calories : 0,
+      protein: 0,
+      carbs: 0
+    }
+  };
 
 
   $scope.data = {
@@ -12,7 +28,6 @@ app.controller("MealCtrl", function($scope, $rootScope, $routeParams, MealFactor
   $scope.options = ["Breakfast","Lunch","Dinner"];
 
   let query = $scope.userInput;
-  console.log("user input", $scope.userInput);
 
   $scope.getFacts = () => {
     console.log("route params", $routeParams.date);
@@ -44,25 +59,56 @@ app.controller("MealCtrl", function($scope, $rootScope, $routeParams, MealFactor
 
 
   let getMeals = () => {
+    let counter = 0;
     console.log("route params", $routeParams.date);
     MealFactory.getUserMeals($routeParams.date).then((returns) => {
+      let finalCount = returns.length;
       returns.forEach((meal) => {
         FoodFactory.getUserFoods(meal.id).then((results) => {
           meal.foods = results;
+          counter++;
+          if(counter === finalCount){
+            $scope.meals = returns;
+            getTotals(returns);
+            getFoods();
+          }
         }).catch((error) => {
           console.log("get user foods", error);
         });
       });
       // Loop through everything that comes back make a factory call for the meal specific foods
-      $scope.meals = returns;
-      console.log("get meals", returns);
-      getFoods();
+      
     }).catch((error) => {
       console.log("get meals error", error);
     });
   };
 
   getMeals();
+
+  let getTotals = (foo) => {
+    // console.log("foods after totals", foo);
+    foo.forEach((meal) => {
+      meal.foods.forEach((food) => {
+        // console.log("inside second foreach loop", food);
+        if(meal.type === "Breakfast"){
+          console.log("inside breakfast", food.nf_calories);
+          totals.breakfast.calories += food.nf_calories;
+          totals.breakfast.carbs += food.nf_total_carbohydrate;
+          totals.breakfast.protein += food.nf_protein;
+        }else if(meal.type === "Lunch"){
+          totals.lunch.calories += food.nf_calories;
+          totals.lunch.carbs += food.nf_total_carbohydrate;
+          totals.lunch.protein += food.nf_protein;
+        }else{
+          totals.dinner.calories += food.nf_calories;
+          totals.dinner.carbs += food.nf_total_carbohydrate;
+          totals.dinner.protein += food.nf_protein;
+        }
+      });
+    });
+    // console.log("after looping", totals);
+    loadCharts();
+  };
 
   
 
@@ -83,127 +129,144 @@ app.controller("MealCtrl", function($scope, $rootScope, $routeParams, MealFactor
 // ##############################################
 //                 AM CHARTS JS
 // ##############################################
+let loadCharts = () => {
+    let proteinData = [ {
+    "type": "Breakfast",
+    "visits": totals.breakfast.protein
+  }, {
+    "type": "Lunch",
+    "visits": totals.lunch.protein
+  }, {
+    "type": "Dinner",
+    "visits": totals.dinner.protein
+  }];
+console.log("proteinData", proteinData);
+let calorieData = [ {
+    "type": "Breakfast",
+    "visits": totals.breakfast.calories
+  }, {
+    "type": "Lunch",
+    "visits": totals.lunch.calories
+  }, {
+    "type": "Dinner",
+    "visits": totals.dinner.calories
+  }];
+let carbData = [ {
+    "type": "Breakfast",
+    "visits": totals.breakfast.carbs
+  }, {
+    "type": "Lunch",
+    "visits": totals.lunch.carbs
+  }, {
+    "type": "Dinner",
+    "visits": totals.dinner.carbs
+  }];
 
-var chartData = generateChartData();
-
-var chart = AmCharts.makeChart("chartdiv", {
-    "type": "serial",
-    "theme": "light",
-    "legend": {
-        "useGraphSettings": true
-    },
-    "dataProvider": chartData,
-    "synchronizeGrid":true,
-    "valueAxes": [{
-        "id":"v1",
-        "axisColor": "#FF6600",
-        "axisThickness": 2,
-        "axisAlpha": 1,
-        "position": "left"
-    }, {
-        "id":"v2",
-        "axisColor": "#FCD202",
-        "axisThickness": 2,
-        "axisAlpha": 1,
-        "position": "right"
-    }, {
-        "id":"v3",
-        "axisColor": "#B0DE09",
-        "axisThickness": 2,
-        "gridAlpha": 0,
-        "offset": 50,
-        "axisAlpha": 1,
-        "position": "left"
-    }],
-    "graphs": [{
-        "valueAxis": "v1",
-        "lineColor": "#FF6600",
-        "bullet": "round",
-        "bulletBorderThickness": 1,
-        "hideBulletsCount": 30,
-        "title": "Total Calories",
-        "valueField": "calories",
-    "fillAlphas": 0
-    }, {
-        "valueAxis": "v2",
-        "lineColor": "#FCD202",
-        "bullet": "square",
-        "bulletBorderThickness": 1,
-        "hideBulletsCount": 30,
-        "title": "Total Protiens",
-        "valueField": "protiens",
-    "fillAlphas": 0
-    }, {
-        "valueAxis": "v3",
-        "lineColor": "#B0DE09",
-        "bullet": "triangleUp",
-        "bulletBorderThickness": 1,
-        "hideBulletsCount": 30,
-        "title": "Total Carbs",
-        "valueField": "carbs",
-    "fillAlphas": 0
-    }],
-    "chartScrollbar": {},
-    "chartCursor": {
-        "cursorPosition": "mouse"
-    },
-    "categoryField": "date",
-    "categoryAxis": {
-        "parseDates": true,
-        "axisColor": "#DADADA",
-        "minorGridEnabled": true
-    },
-    "export": {
-      "enabled": true,
-        "position": "bottom-right"
-     }
+var chart = AmCharts.makeChart( "chartdiv1", {
+  "type": "serial",
+  "theme": "light",
+  "dataProvider": proteinData,
+  "valueAxes": [ {
+    "gridColor": "#FFFFFF",
+    "gridAlpha": 0.2,
+    "dashLength": 0
+  } ],
+  "gridAboveGraphs": true,
+  "startDuration": 1,
+  "graphs": [ {
+    "balloonText": "<strong>[[value]]</strong>",
+    "fillAlphas": 0.8,
+    "lineAlpha": 0.2,
+    "type": "column",
+    "valueField": "visits"
+  } ],
+  "chartCursor": {
+    "categoryBalloonEnabled": false,
+    "cursorAlpha": 0,
+    "zoomable": false
+  },
+  "categoryField": "type",
+  "categoryAxis": {
+    "gridPosition": "start",
+    "gridAlpha": 0,
+    "tickPosition": "start",
+    "tickLength": 20
+  },
+  "export": {
+    "enabled": true
+  }
 });
 
+chart = AmCharts.makeChart( "chartdiv2", {
+  "type": "serial",
+  "theme": "light",
+  "dataProvider": calorieData,
+  "valueAxes": [ {
+    "gridColor": "#FFFFFF",
+    "gridAlpha": 0.2,
+    "dashLength": 0
+  } ],
+  "gridAboveGraphs": true,
+  "startDuration": 1,
+  "graphs": [ {
+    "balloonText": "<strong>[[value]]</strong>",
+    "fillAlphas": 0.8,
+    "lineAlpha": 0.2,
+    "type": "column",
+    "valueField": "visits"
+  } ],
+  "chartCursor": {
+    "categoryBalloonEnabled": false,
+    "cursorAlpha": 0,
+    "zoomable": false
+  },
+  "categoryField": "type",
+  "categoryAxis": {
+    "gridPosition": "start",
+    "gridAlpha": 0,
+    "tickPosition": "start",
+    "tickLength": 20
+  },
+  "export": {
+    "enabled": true
+  }
+});
 
-
-function setDataSet(dataset_url) {
-  AmCharts.loadFile(dataset_url, {}, function(data) {
-    chart.dataProvider = AmCharts.parseJSON(data);
-    chart.validateData();
-  });
-}
-
-
-
-// chart.addListener("dataUpdated", zoomChart);
-// zoomChart();
-
-
-// generate some random data, quite different range
-function generateChartData() {
-    var chartData = [];
-    var firstDate = new Date();
-    firstDate.setDate(firstDate.getDate() - 10);
-
-    for (var i = 0; i < 10; i++) {
-        // we create date objects here. In your data, you can have date strings
-        // and then set format of your dates using chart.dataDateFormat property,
-        // however when possible, use date objects, as this will speed up chart rendering.
-        var newDate = new Date(firstDate);
-        newDate.setDate(newDate.getDate() + i);
-
-        var calories = Math.round(Math.sin(i * 5) * i);
-        var protiens = Math.round(Math.random() * 80) + 500 + i * 3;
-        var carbs = Math.round(Math.random() * 6000) + i * 4;
-
-        chartData.push({
-            date: newDate,
-            calories: calories,
-            protiens: protiens,
-            carbs: carbs
-        });
-    }
-    return chartData;
-}
-
-// function zoomChart(){
-//     chart.zoomToIndexes(chart.dataProvider.length - 20, chart.dataProvider.length - 1);
-// }
+chart = AmCharts.makeChart( "chartdiv3", {
+  "type": "serial",
+  "theme": "light",
+  "dataProvider": carbData,
+  "valueAxes": [ {
+    "gridColor": "#FFFFFF",
+    "gridAlpha": 0.2,
+    "dashLength": 0
+  } ],
+  "gridAboveGraphs": true,
+  "startDuration": 1,
+  "graphs": [ {
+    "balloonText": "<strong>[[value]]</strong>",
+    "fillAlphas": 0.8,
+    "lineAlpha": 0.2,
+    "type": "column",
+    "valueField": "visits"
+  } ],
+  "chartCursor": {
+    "categoryBalloonEnabled": false,
+    "cursorAlpha": 0,
+    "zoomable": false
+  },
+  "categoryField": "type",
+  "categoryAxis": {
+    "gridPosition": "start",
+    "gridAlpha": 0,
+    "tickPosition": "start",
+    "tickLength": 20
+  },
+  "export": {
+    "enabled": true
+  }
+});
+};
 
 
 });

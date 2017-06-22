@@ -14,8 +14,8 @@
 				<a ng-href="/#!/meal/{{day.id}}">{{day.date}}</a>
 			</div>
 			<div class="col-xs-4">
-				<button>Delete</button>
-				<button>Edit</button>
+				<button ng-click="deleteDates(day.id)">Delete</button>
+				<button ng-click="editDates(day.id)">Edit</button>
 			</div>
 		</div>
 	</div>

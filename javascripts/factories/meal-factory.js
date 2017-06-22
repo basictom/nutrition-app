@@ -1,28 +1,38 @@
-app.factory("MealFactory", function($q, $http, $httpParamSerializerJQLike, FIREBASE_CONFIG, NUTRX_CONFIG){
+app.factory("MealFactory", function($q, $http, $rootScope, FIREBASE_CONFIG, NUTRX_CONFIG){
 
-  let getUserNutr = (query) => {
-    console.log("get api", query);
+
+
+
+  let createMeal = (meal, uid, date) => {
     return $q((resolve, reject) => {
-      $http({
-        method: 'POST',
-        url: 'https://trackapi.nutritionix.com/v2/natural/nutrients',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'x-app-id': `${NUTRX_CONFIG.xappId}`,
-          'x-app-key': `${NUTRX_CONFIG.xapiKey}`,
-          'x-remote-user-id': `${NUTRX_CONFIG.xuserId}`
-        },
-        data: $httpParamSerializerJQLike({'query': query.query
-        })
-      })
-      .then((nutrients) => {
-        console.log("api returned", nutrients);
-          // let collection = nutr.data;
-            // Object.keys(pinCollection).forEach((key) => {
-            //   pinCollection[key].id=key;
-            //   pins.push(pinCollection[key]);
-            // });
-          resolve(nutrients);
+      $http.post(`${FIREBASE_CONFIG.databaseURL}/meals.json`, JSON.stringify({
+        dayId: date,
+        type: meal.singleSelect,
+        uid: uid
+      }))
+      .then((meals) => {
+          resolve(meals);
+      }).catch((error) => {
+        reject(error);
+      });
+    });
+  };
+
+  let getUserMeals = (dateId) => {
+    console.log("get user meals", dateId);
+    let meals = [];
+    return $q((resolve, reject) => {
+      $http.get(`${FIREBASE_CONFIG.databaseURL}/meals.json?orderBy="dayId"&equalTo="${dateId}"`)
+      .then((meal) => {
+        let mealCollect = meal.data;
+          if(mealCollect !== null){
+            Object.keys(mealCollect).forEach((key) => {
+              mealCollect[key].id=key;
+              meals.push(mealCollect[key]);
+            });
+          }
+          console.log("get user meals", meals);
+          resolve(meals);
       }).catch((error) => {
         reject(error);
       });
@@ -30,7 +40,7 @@ app.factory("MealFactory", function($q, $http, $httpParamSerializerJQLike, FIREB
   };
 
 
-  return {getUserNutr:getUserNutr};
+  return {getUserMeals:getUserMeals, createMeal:createMeal};
 
 
 });

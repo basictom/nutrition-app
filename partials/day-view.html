@@ -1,0 +1,35 @@
+<h1>Welcome to the day view folks</h1>
+<!-- <input type="date" id="date" ng-model="userDate.date" />
+<button ng-click="addNewDay()">Add New Date</button> -->
+
+<div ng-show="!showEditDiv">
+<datepicker date-format="shortDate">
+  <input ng-model="date" type="text"/>
+</datepicker>
+<button ng-click="addNewDay()">Add New Date</button>
+</div>
+
+<div ng-show="showEditDiv">
+<datepicker date-format="shortDate">
+	<input type="text" ng-model="newDate">
+</datepicker>
+<button ng-click="editOneDatePlease()">Edit New Date</button>
+</div>
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-xs-6 day-view" ng-repeat="day in newDates">
+			<div class="col-xs-8">
+				<a ng-href="/#!/meal/{{day.id}}">{{day.date}}</a>
+				
+			</div>
+			<div class="col-xs-4">
+				<button ng-click="deleteDates(day.id)">Delete</button>
+				<button ng-click="clickingEditButton(day.id)">Edit</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+

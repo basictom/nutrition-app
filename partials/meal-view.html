@@ -1,6 +1,33 @@
 <div class="col-xs-12">
   <div class="col-xs-8 col-xs-offset-1">
+    <select required name="singleSelect" ng-model="userInput.singleSelect">
+      <option ng-repeat="x in options">{{x}}</option>
+    </select>
+
     <input type="text" ng-model="userInput.query" placeholder="Search..." />
+    <!-- <input type="text" ng-model="userInput.date" placeholder="Date" /> -->
     <button ng-click="getFacts()">Get Facts</button>
+  </div>
+  <div class="col-xs-12">
+    <div class="row">
+      
+      <div id="chartdiv1" class="col-xs-4 chartdiv"></div> 
+      <div id="chartdiv2" class="col-xs-4 chartdiv"></div> 
+      <div id="chartdiv3" class="col-xs-4 chartdiv"></div> 
+      <div class="panel" ng-repeat="meal in meals">
+        <h2>{{meal.type}}&nbsp;&nbsp;&nbsp;{{meal.date}}</h2><br />
+        
+        <div class="" ng-repeat="food in meal.foods">
+          Name: {{food.food_name}}<br/>
+          Calories: {{food.nf_calories}}<br  />
+          Cholesterol: {{food.nf_cholesterol}}<br />
+          Protiens: {{food.nf_protein}}<br />
+          Carb's: {{food.nf_total_carbohydrate}}<br />
+          Serving Unit: {{food.serving_unit}}<br />
+          Serving Quantity: {{food.serving_qty}}<br />
+        </div>
+      </div>
+      
+    </div>
   </div>
 </div>

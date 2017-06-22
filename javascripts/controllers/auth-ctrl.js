@@ -10,11 +10,9 @@ app.controller("AuthCtrl", function($location, $rootScope, $scope, AuthFactory, 
       return UserFactory.getUser(userCreds.uid);
     }, (error) => {
       $scope.alerts.push({msg: error.message});
-      console.log("authenticate error", error);
     }).then((user) => {
       $rootScope.user = user;
-      // console.log("successful log in");
-      $location.url("/meal");
+      $location.url("/day");
     }).catch((error) => {
       console.log("getUser error", error);
     });

@@ -48,7 +48,7 @@ app.config(function($routeProvider) {  // $routeProvider --- angular key word
     controller: 'DayCtrl'
     // resolve : {isAuth}
   })
-  .when('/meal', {
+  .when('/meal/:date', {
     templateUrl: '/partials/meal-view.html',
     controller: 'MealCtrl'
     // resolve : {isAuth}
@@ -57,6 +57,6 @@ app.config(function($routeProvider) {  // $routeProvider --- angular key word
     templateUrl: '/partials/pin-new.html',
     controller: 'FoodCtrl'
     // resolve : {isAuth}
-  });
-  // .otherwise('/auth');
+  })
+  .otherwise('/auth');
 });

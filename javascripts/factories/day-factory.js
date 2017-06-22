@@ -46,11 +46,11 @@ let getDates = (uid) => {
     });
   };
 
-  let editDates = (id) => {
-    console.log(id);
+  let tryingToEditDates = (id, newDate) => {
+    console.log(newDate);
     return $q((resolve, reject) => {
       $http.put(`${FIREBASE_CONFIG.databaseURL}/days/${id}.json`, JSON.stringify({
-        date: date,
+        date: newDate,
         uid: $rootScope.user.uid
       }))
       .then((results) => {
@@ -62,6 +62,6 @@ let getDates = (uid) => {
   };
 
 
-  return {postNewDay:postNewDay, getDates:getDates, dateDelete:dateDelete};
+  return {postNewDay:postNewDay, getDates:getDates, dateDelete:dateDelete, tryingToEditDates:tryingToEditDates};
 
 });

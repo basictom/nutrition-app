@@ -1,6 +1,10 @@
 app.controller("DayCtrl", function($scope, $rootScope, DayFactory, FIREBASE_CONFIG){
   $scope.newDates = {};
   $scope.date = "";
+  $scope.newDate = "";
+  let currentId = "";
+
+  $scope.showEditDiv = false;
 
   // console.log("user date", $scope.userDate.date);
 
@@ -35,9 +39,24 @@ app.controller("DayCtrl", function($scope, $rootScope, DayFactory, FIREBASE_CONF
     });
   };
 
-  $scope.editDates = (id) => {
-    console.log("clicking into edit", id);
-    DayFactory.dateEdit(id).then(() => {
+  $scope.clickingEditButton = (id) => {
+    console.log("clicking edit button");
+    $scope.showEditDiv = true;
+    // console.log("edit id", id);
+    currentId = id;
+
+  };
+
+
+
+
+  $scope.editOneDatePlease = () => {
+    
+    // newDate = $scope.date;
+    // console.log("clicking into edit", id);
+    // $scope.newDate
+    DayFactory.tryingToEditDates(currentId, $scope.newDate).then(() => {
+
       getDates();
     }).catch((error) => {
       console.log("error in edit", error);

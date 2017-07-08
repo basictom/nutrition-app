@@ -10,22 +10,57 @@
   </div>
   <div class="col-xs-12">
     <div class="row">
-      
-      <div id="chartdiv1" class="col-xs-4 chartdiv"></div> 
+      <!-- <div id="chartdiv1" class="col-xs-4 chartdiv"></div> 
       <div id="chartdiv2" class="col-xs-4 chartdiv"></div> 
-      <div id="chartdiv3" class="col-xs-4 chartdiv"></div> 
+      <div id="chartdiv3" class="col-xs-4 chartdiv"></div>  -->
+      <div ng-repeat="total in totalNutrients">
+          {{total.calories}}
+        </div>
+      
+
       <div class="panel" ng-repeat="meal in meals">
         <h2>{{meal.type}}&nbsp;&nbsp;&nbsp;{{meal.date}}</h2><br />
+        <div class="col-xs-2">{{meal.foods.food_name}}</div>
+        <div class="col-xs-2">Serving Unit</div>
+        <div class="col-xs-2">Serving Quantity</div>
+        <div class="col-xs-2">Calories</div>
+        <div class="col-xs-2">Proteins</div>
+        <div class="col-xs-2">Carb's</div>
         
-        <div class="" ng-repeat="food in meal.foods">
-          Name: {{food.food_name}}<br/>
+        <!-- <div class="" ng-repeat="food in meal.foods"> -->
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr ng-repeat="food in meal.foods">
+            <td style="border-right:1px solid #000;padding:5px;border-bottom:1px solid #000;" width="100" align="left">{{food.food_name}}</td>
+            <td style="border-right:1px solid #000;padding:5px;border-bottom:1px solid #000;" width="100" align="left">{{food.serving_unit}}</td>
+            <td style="border-right:1px solid #000;padding:5px;border-bottom:1px solid #000;" width="100" align="left">{{food.serving_qty}}</td>
+            <td style="border-right:1px solid #000;padding:5px;border-bottom:1px solid #000;" width="100" align="left">{{food.nf_calories}}</td>
+            <td style="border-right:1px solid #000;padding:5px;border-bottom:1px solid #000;" width="100" align="left">{{food.nf_protein}}</td>
+            <td style="border-bottom:1px solid #000;padding:5px" width="100" align="left">{{food.nf_total_carbohydrate}}</td>
+          </tr>
+          <tr ng-repeat="total in totalNutrients">
+            <td>{{total.calories}}</td>
+            <td>{{total.proteins}}</td>
+            <td>{{total.carbs}}</td>
+          </tr>
+        </table>
+
+        <!-- <div class="col-xs-1"></div>
+        <div class="col-xs-1"></div>
+        <div class="col-xs-2"></div>
+        <div class="col-xs-2"></div>
+        <div class="col-xs-2"></div>
+        <div class="col-xs-2"></div>
+        <div class="col-xs-2"></div> -->
+
+        <!-- <div id="chartdiv"></div> -->
+          <!-- Name: {{food.food_name}}<br/>
           Calories: {{food.nf_calories}}<br  />
           Cholesterol: {{food.nf_cholesterol}}<br />
           Protiens: {{food.nf_protein}}<br />
           Carb's: {{food.nf_total_carbohydrate}}<br />
           Serving Unit: {{food.serving_unit}}<br />
-          Serving Quantity: {{food.serving_qty}}<br />
-        </div>
+          Serving Quantity: {{food.serving_qty}}<br /> -->
+        <!-- </div> -->
       </div>
       
     </div>

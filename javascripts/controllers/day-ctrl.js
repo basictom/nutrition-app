@@ -23,6 +23,7 @@ app.controller("DayCtrl", function($scope, $rootScope, DayFactory, FIREBASE_CONF
   let getDates = () => {
     DayFactory.getDates($rootScope.user.uid).then((results) => {
       $scope.newDates = results;
+      loadPieChart();
     }).catch((error) => {
       console.log("get dates error", error);
     });
@@ -42,6 +43,7 @@ app.controller("DayCtrl", function($scope, $rootScope, DayFactory, FIREBASE_CONF
   $scope.clickingEditButton = (id) => {
     console.log("clicking edit button");
     $scope.showEditDiv = true;
+    // $scope.
     // console.log("edit id", id);
     currentId = id;
 
@@ -58,8 +60,57 @@ app.controller("DayCtrl", function($scope, $rootScope, DayFactory, FIREBASE_CONF
     DayFactory.tryingToEditDates(currentId, $scope.newDate).then(() => {
 
       getDates();
+      $scope.showEditDiv = false;
+      $scope.date = "";
     }).catch((error) => {
       console.log("error in edit", error);
+    });
+  };
+
+
+
+  let loadPieChart = () => {
+  // console.log("indside pie charts", foo);
+    var chart = AmCharts.makeChart( "chartdiv", {
+    "type": "pie",
+    "theme": "light",
+    "groupPercent": 5,
+    "dataProvider": [ {
+      "types": "Lithuania",
+      "litres": 501.9
+    }, {
+      "types": "Czech Republic",
+      "litres": 301.9
+    }, {
+      "types": "Ireland",
+      "litres": 201.1
+    }, {
+      "types": "Germany",
+      "litres": 165.8
+    }, {
+      "types": "Australia",
+      "litres": 139.9
+    }, {
+      "types": "Austria",
+      "litres": 128.3
+    }, {
+      "types": "UK",
+      "litres": 99
+    }, {
+      "types": "Belgium",
+      "litres": 60
+    }, {
+      "types": "The Netherlands",
+      "litres": 50
+    } ],
+    "valueField": "litres",
+    "titleField": "types",
+     "balloon":{
+     "fixedPosition":true
+    },
+    "export": {
+      "enabled": true
+    }
     });
   };
 

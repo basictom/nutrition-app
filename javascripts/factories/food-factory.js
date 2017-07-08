@@ -20,6 +20,7 @@ app.factory("FoodFactory", function($q, $http, $httpParamSerializerJQLike, NUTRX
       })
       .then((nutrients) => {
           flatNutrients = nutrients.data.foods;
+            console.log("api food call", flatNutrients);
           resolve(flatNutrients);
       }).catch((error) => {
         console.log("catch error", error);
@@ -50,6 +51,7 @@ app.factory("FoodFactory", function($q, $http, $httpParamSerializerJQLike, NUTRX
 
 
   let postUserValues = (values, mealId) => {
+    console.log("posting user values", values);
     return $q((resolve, reject) => {
         $http.post(`${FIREBASE_CONFIG.databaseURL}/foods.json`, JSON.stringify({
           mealId: mealId,
@@ -59,7 +61,8 @@ app.factory("FoodFactory", function($q, $http, $httpParamSerializerJQLike, NUTRX
           nf_total_carbohydrate: values.nf_total_carbohydrate,
           serving_qty: values.serving_qty,
           serving_unit: values.serving_unit,
-          food_name: values.food_name
+          food_name: values.food_name,
+          image: values.photo.thumb
         }))
         .then((result) => {
           resolve(result);

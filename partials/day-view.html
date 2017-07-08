@@ -16,20 +16,33 @@
 <button ng-click="editOneDatePlease()">Edit New Date</button>
 </div>
 
+	<div class="col-xs-4">
+		<div class="card col-xs-12" ng-repeat="day in newDates">
+		  <div class="card-block">
+		    <h4 class="card-title"><a ng-href="/#!/meal/{{day.id}}">{{day.date}}</a></h4>
 
-<div class="container">
-	<div class="row">
-		<div class="col-xs-6 day-view" ng-repeat="day in newDates">
-			<div class="col-xs-8">
-				<a ng-href="/#!/meal/{{day.id}}">{{day.date}}</a>
-				
-			</div>
-			<div class="col-xs-4">
-				<button ng-click="deleteDates(day.id)">Delete</button>
-				<button ng-click="clickingEditButton(day.id)">Edit</button>
-			</div>
+		    <div id="chartdiv">This is where the chart should be</div>
+
+		    <a href="#" class="btn btn-primary">DELETE</a>
+		    <a href="#" class="btn btn-primary">EDIT</a>
+		  </div>
 		</div>
 	</div>
-</div>
+
+
+	<!-- <div class="col-xs-2" ng-repeat="day in newDates">
+		<div class="row">
+			<div class="col-xs-12 day-view">
+					<a ng-href="/#!/meal/{{day.id}}">{{day.date}}</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 buttons">
+				<button class="day-btn" ng-click="deleteDates(day.id)">Delete</button>
+				<button class="day-btn" ng-click="clickingEditButton(day.id)">Edit</button>
+			</div>
+		</div>
+	</div> -->
+
 
 

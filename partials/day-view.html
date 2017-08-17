@@ -1,6 +1,4 @@
 <h1>Welcome to the day view folks</h1>
-<!-- <input type="date" id="date" ng-model="userDate.date" />
-<button ng-click="addNewDay()">Add New Date</button> -->
 
 <div ng-show="!showEditDiv">
 <datepicker date-format="shortDate">
@@ -16,20 +14,31 @@
 <button ng-click="editOneDatePlease()">Edit New Date</button>
 </div>
 
-
-<div class="container">
-	<div class="row">
-		<div class="col-xs-6 day-view" ng-repeat="day in newDates">
-			<div class="col-xs-8">
-				<a ng-href="/#!/meal/{{day.id}}">{{day.date}}</a>
-				
+	<div class="col-xs-4 date-block" ng-repeat="day in newDates | orderBy: '-date'">
+		<div class="date-cont">
+			<div class="row right">
+				<div class="col-xs-12">
+					<button class="delete-btn" ng-click="deleteDates(day.id)"><i class="fa fa-times" aria-hidden="true"></i></button>
+				</div>
 			</div>
-			<div class="col-xs-4">
-				<button ng-click="deleteDates(day.id)">Delete</button>
-				<button ng-click="clickingEditButton(day.id)">Edit</button>
+			<div class="row center">
+				<div class="card col-xs-12 card-block">
+
+          <div class="date">
+          	<span class="binds"></span>
+          	<span class="month"></span>
+          	<h5 class="day">{{day.date}}</h5>
+          </div>
+
+				   <!-- <h4 class="center"><a ng-href="/#!/meal/{{day.id}}">{{day.date}}</a></h4> -->
+
+
+				</div>
+			</div>
+			<div class="row center">
+				<div class="col-xs-12 center">
+					<button class="edit-btn" ng-click="clickingEditButton(day.id)">EDIT</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-
-

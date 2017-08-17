@@ -134,29 +134,28 @@ let loadCharts = () => {
     "type": "Proteins",
     "visits": totals.breakfast.protein
   }, {
-    "type": "Proteins",
-    "visits": totals.lunch.protein
-  }, {
-    "type": "Proteins",
-    "visits": totals.dinner.protein
-  }];
-console.log("proteinData", proteinData);
-let calorieData = [ {
     "type": "Calories",
     "visits": totals.breakfast.calories
+  }, {
+    "type": "Carbohydrates",
+    "visits": totals.breakfast.carbs
+  }]; 
+let calorieData = [ {
+    "type": "Proteins",
+    "visits": totals.lunch.protein
   }, {
     "type": "Calories",
     "visits": totals.lunch.calories
   }, {
-    "type": "Calories",
-    "visits": totals.dinner.calories
-  }];
-let carbData = [ {
-    "type": "Carbohydrates",
-    "visits": totals.breakfast.carbs
-  }, {
     "type": "Carbohydrates",
     "visits": totals.lunch.carbs
+  }];
+let carbData = [ {
+    "type": "Protein",
+    "visits": totals.dinner.protein
+  }, {
+    "type": "Calories",
+    "visits": totals.dinner.calories
   }, {
     "type": "Carbohydrates",
     "visits": totals.dinner.carbs

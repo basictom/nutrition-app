@@ -22,11 +22,28 @@ app.controller("DayCtrl", function($scope, $rootScope, DayFactory, FIREBASE_CONF
 
   let getDates = () => {
     DayFactory.getDates($rootScope.user.uid).then((results) => {
-      $scope.newDates = results;
+      // console.log(results);
+      // debugger;
+      for(x=0;x<results.length;x++){
+        // console.log(results[x].date);
+        var i = results[x].date;
+        var newStrg = i.split("/");
+        var day = newStrg[1];
+        if(newStrg[0] = 8){
+          newMonth = "August";
+        }else if(newString[0] = 7){
+          newMonth = "July";
+        }else{
+          console.log("no month");
+        }
+        console.log(newMonth);
+      }
+      // $scope.newDates = results;
     }).catch((error) => {
       console.log("get dates error", error);
     });
   };
+
 
   getDates();
 
@@ -51,7 +68,7 @@ app.controller("DayCtrl", function($scope, $rootScope, DayFactory, FIREBASE_CONF
 
 
   $scope.editOneDatePlease = () => {
-    
+
     // newDate = $scope.date;
     // console.log("clicking into edit", id);
     // $scope.newDate

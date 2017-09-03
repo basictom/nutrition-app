@@ -21,24 +21,29 @@ app.controller("DayCtrl", function($scope, $rootScope, DayFactory, FIREBASE_CONF
   };
 
   let getDates = () => {
-    DayFactory.getDates($rootScope.user.uid).then((results) => {
-      // console.log(results);
-      // debugger;
-      for(x=0;x<results.length;x++){
-        // console.log(results[x].date);
-        var i = results[x].date;
-        var newStrg = i.split("/");
-        var day = newStrg[1];
-        if(newStrg[0] = 8){
-          newMonth = "August";
-        }else if(newString[0] = 7){
-          newMonth = "July";
-        }else{
-          console.log("no month");
-        }
-        console.log(newMonth);
+    DayFactory.getDates($rootScope.user.uid).then((dates) => {
+      let month;
+      let day;
+      for(x=0;x<dates.length;x++){
+    	let newDate = dates[x].date;
+      let splt = newDate.split("/");
+      let month = splt[0];
+      let day = splt[1];
+      if(month == "6"){
+      month = "June";
+      }else if(month == "7"){
+      month = "July";
+      }else if(month == "8"){
+      month = "August";
+      }else if(month == "9"){
+      month = "September";
+      }else{
+      console.log("no valid month");
       }
-      // $scope.newDates = results;
+      dates[x].month = month;
+      dates[x].day = day;
+    }
+    $scope.newDates = dates;
     }).catch((error) => {
       console.log("get dates error", error);
     });

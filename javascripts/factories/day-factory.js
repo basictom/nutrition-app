@@ -1,5 +1,4 @@
 app.factory("DayFactory", function($q, $http, FIREBASE_CONFIG, $rootScope){
-  console.log("day factory");
 
   let postNewDay = (date) => {
   return $q((resolve, reject) => {
@@ -28,6 +27,7 @@ let getDates = (uid) => {
               dates.push(dateCollect[key]);
             });
           }
+          console.log(dates);
           resolve(dates);
       }).catch((error) => {
         reject(error);

@@ -60,7 +60,7 @@ app.controller("MealCtrl", function($scope, $rootScope, $routeParams, MealFactor
 
   let getMeals = () => {
     let counter = 0;
-    console.log("route params", $routeParams.date);
+    // console.log("route params", $routeParams.date);
     MealFactory.getUserMeals($routeParams.date).then((returns) => {
       let finalCount = returns.length;
       returns.forEach((meal) => {
@@ -77,7 +77,7 @@ app.controller("MealCtrl", function($scope, $rootScope, $routeParams, MealFactor
         });
       });
       // Loop through everything that comes back make a factory call for the meal specific foods
-      
+
     }).catch((error) => {
       console.log("get meals error", error);
     });
@@ -91,7 +91,7 @@ app.controller("MealCtrl", function($scope, $rootScope, $routeParams, MealFactor
       meal.foods.forEach((food) => {
         // console.log("inside second foreach loop", food);
         if(meal.type === "Breakfast"){
-          console.log("inside breakfast", food.nf_calories);
+          // console.log("inside breakfast", food.nf_calories);
           totals.breakfast.calories += food.nf_calories;
           totals.breakfast.carbs += food.nf_total_carbohydrate;
           totals.breakfast.protein += food.nf_protein;
@@ -106,13 +106,13 @@ app.controller("MealCtrl", function($scope, $rootScope, $routeParams, MealFactor
         }
       });
     });
-    // console.log("after looping", totals);
+    console.log("after looping", [totals]);
     loadCharts();
   };
 
-  
 
-  
+
+
 
   let singleItem = (item, mealId) => {
     FoodFactory.postUserValues(item, mealId).then((returns) => {
@@ -139,7 +139,7 @@ let loadCharts = () => {
   }, {
     "type": "Carbohydrates",
     "visits": totals.breakfast.carbs
-  }]; 
+  }];
 let calorieData = [ {
     "type": "Proteins",
     "visits": totals.lunch.protein

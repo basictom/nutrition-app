@@ -29,16 +29,32 @@ app.controller("DayCtrl", function($scope, $rootScope, DayFactory, FIREBASE_CONF
       let splt = newDate.split("/");
       let month = splt[0];
       let day = splt[1];
-      if(month == "6"){
-      month = "June";
-      }else if(month == "7"){
-      month = "July";
-      }else if(month == "8"){
-      month = "August";
+      if(month == "12"){
+        month = "December";
+      }else if(month == "11"){
+        month = "November";
+      }else if(month == "10"){
+        month = "October";
       }else if(month == "9"){
-      month = "September";
+        month = "September";
+      }else if(month == "8"){
+        month = "August";
+      }else if(month == "7"){
+        month = "July";
+      }else if(month == "6"){
+        month = "June";
+      }else if(month == "5"){
+        month = "May";
+      }else if(month == "4"){
+        month = "April";
+      }else if(month == "3"){
+        month = "March";
+      }else if(month == "2"){
+        month = "February";
+      }else if(month == "1"){
+        month = "January";
       }else{
-      console.log("no valid month");
+        alert("Not a real month selected");
       }
       dates[x].month = month;
       dates[x].day = day;

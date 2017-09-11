@@ -11,33 +11,28 @@
 <datepicker date-format="shortDate">
 	<input type="text" ng-model="newDate">
 </datepicker>
-<button ng-click="editOneDatePlease()">Edit New Date</button>
+<button class="btn btn-warning" ng-click="editOneDatePlease()">Edit New Date</button>
 </div>
 
-	<div class="col-xs-4 date-block" ng-repeat="day in newDates">
+	<div class="col-xs-4 date-block" ng-repeat="day in newDates | orderBy: '-date'">
 		<div class="date-cont">
-			<div class="row right">
-				<div class="col-xs-12">
-					<button class="delete-btn" ng-click="deleteDates(day.id)"><i class="fa fa-times" aria-hidden="true"></i></button>
-				</div>
-			</div>
 			<div class="row center">
 				<div class="card col-xs-12 card-block">
-
-          <div class="date">
-          	<span class="binds"></span>
-          	<span class="month">{{day.month}}</span>
-          	<h1 class="day">{{day.day}}</h1>
-          </div>
-
-				   <!-- <h4 class="center"><a ng-href="/#!/meal/{{day.id}}">{{day.date}}</a></h4> -->
-
-
+          <a ng-href="/#!/meal/{{day.id}}">
+            <div class="date">
+            	<span class="binds"></span>
+            	<span class="month">{{day.month}}</span>
+            	<h1 class="day">{{day.day}}</h1>
+            </div>
+          </a>
 				</div>
 			</div>
-			<div class="row center">
-				<div class="col-xs-12 center">
-					<button class="edit-btn" ng-click="clickingEditButton(day.id)">EDIT</button>
+			<div class="btn-container row center">
+        <div class="col-xs-6 center">
+          <button class="btn delete-btn" ng-click="deleteDates(day.id)"><i class="fa fa-times" aria-hidden="true"></i></button>
+        </div>
+				<div class="col-xs-6 center">
+					<button class="edit-btn btn btn-warning" ng-click="clickingEditButton(day.id)">EDIT</button>
 				</div>
 			</div>
 		</div>

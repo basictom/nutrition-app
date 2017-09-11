@@ -1,5 +1,24 @@
+a, a:hover {
+  text-decoration: none;
+  color: inherit; }
+
+.btn-container {
+  display: none; }
+
+.btn-container:hover {
+  display: block; }
+
 .chartdiv {
   height: 200px; }
+
+.date-block {
+  width: 150px; }
+
+.delete-btn {
+  width: 35px;
+  border: none;
+  background-color: salmon;
+  color: #fff; }
 
 .navbar-fixed-left {
   width: 140px;

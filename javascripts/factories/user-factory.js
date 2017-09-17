@@ -6,7 +6,7 @@ app.factory("UserFactory", function($q, $http, FIREBASE_CONFIG) {
         .then((userObject) => {
           let users = [];
           Object.keys(userObject.data).forEach((key) => {
-            users.push(userObject.data[key]); //looping through object of objects and pushing first into user array. A way to loop over objects.
+            users.push(userObject.data[key]);
           });
           resolve(users[0]);
         })
